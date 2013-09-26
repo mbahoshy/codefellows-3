@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+
+	<!--<script src="usermodel.js"></script>-->
+	<link rel='stylesheet' href='styles/main.css'	/>
+	<script src="js/lib/jquery.js"></script>
+	<script src="js/lib/underscore.js"></script>
+	<script src="js/lib/backbone.js"></script>
+
+	<!--<script src="usermodel.js"></script>-->
+	<!--<script src="extra.js"></script>-->
+	<script>
+		$(document).ready(function(){
+			$.getScript("js/usermodel.js");
+
+		});
+	</script>
+
+</head>
+<body>
+	<div id='header_wrap'>
+		<h1>Manage Users</h1>
+	</div>
+	<form name='newUser' action='#' method='get'>
+		<span>First Name: <input type='text' name='nameFirst'></span>
+		<span>Last Name: <input type='text' name='nameLast'></span>
+		<span>Email: <input type='text' name='email'></span><br/>
+		<input class='submit-button' type='submit' value='Add User'>
+	</form>
+	<table id='user_table'>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th class='icons'></th>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<div class='edit-user'>
+	</div>
+</body>
+</html>
