@@ -4,18 +4,18 @@
 <head>
 	<meta charset="UTF-8">
 
-	<!--<script src="usermodel.js"></script>-->
 	<link rel='stylesheet' href='styles/main.css'	/>
 	<script src="js/lib/jquery.js"></script>
 	<script src="js/lib/underscore.js"></script>
 	<script src="js/lib/backbone.js"></script>
 
-	<!--<script src="usermodel.js"></script>-->
-	<!--<script src="extra.js"></script>-->
+	<script src="js/functions.js"></script>
+	
 	<script>
 		$(document).ready(function(){
 			$.getScript("js/usermodel.js");
-
+			$('#add_button').click(addUser);
+			edit_open = 'false';
 		});
 	</script>
 
@@ -24,11 +24,12 @@
 	<div id='header_wrap'>
 		<h1>Manage Users</h1>
 	</div>
-	<form name='newUser' action='#' method='get'>
-		<span>First Name: <input type='text' name='nameFirst'></span>
-		<span>Last Name: <input type='text' name='nameLast'></span>
-		<span>Email: <input type='text' name='email'></span><br/>
-		<input class='submit-button' type='submit' value='Add User'>
+	<div id='add_user'>
+		<span class='nameFirst'>First Name: <input type='text'></span>
+		<span class='nameLast'>Last Name: <input type='text'></span>
+		<span class='email'>Email: <input type='text'></span><br/>
+		<div id='add_button'>Add User</div>
+	</div>
 	</form>
 	<table id='user_table'>
 		<tr>
@@ -43,7 +44,9 @@
 			<td></td>
 		</tr>
 	</table>
-	<div class='edit-user'>
+	<div id='edit_user'>
+		<h2>Edit User</h2>
+
 	</div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 var User = Backbone.Model.extend({
-	className: 'users',
+	className: 'userclass',
 	urlRoot: '/userlist',
 	initialize : function () {
 		ulist.add(this);
@@ -18,6 +18,7 @@ var UsersList = Backbone.Collection.extend({
 
 var ulist = new UsersList();
 
+
 var userView = Backbone.View.extend({
 	tagName: 'tr',
 	events: {
@@ -33,7 +34,10 @@ var userView = Backbone.View.extend({
 		this.model.destroy();
 	},
 	alertedit : function (e) {
-
+		if (edit_open == 'false') {
+			new editView ({model: this.model});
+			edit_open = 'true';
+		}	
 	},
 	render : function () {
 		var html = "<td>" + this.model.get('nameFirst') + "</td><td>" + this.model.get('nameLast') + "</td><td>" + this.model.get('email') + "</td><td class='icons'><img class='edit' src='images/edit.png'	/><img class='delete' src='images/delete.png'	/></td>";
@@ -42,13 +46,38 @@ var userView = Backbone.View.extend({
 	}
 });
 
-var newUser = new User({nameFirst:'Matthew', nameLast:'Ross', email:'mbahoshy@gmail.com'});
-var newUser2 = new User({nameFirst:'Joe', nameLast:'Ross', email:'joe@gmail.com'});
+var editView = Backbone.View.extend({
+	//tagName: 'tr',
+	initialize: function () {
+		this.model.on('destroy', this.remove, this);
+		this.render();
+	},
+	events: {
+		"click #edit_button" : "updateUser"
+	},
+	updateUser: function (e) {
+		newNameFirst = $('#edit_user .nameFirst input').val();
+		newNameLast = $('#edit_user .nameLast input').val();
+		newEmail = $('#edit_user .email input').val();
+		this.model.set({nameFirst: newNameFirst, nameLast: newNameLast, email:newEmail});
+		$('#edit_user').fadeToggle();
+		this.remove();
+		edit_open = 'false';
 
+	},
+	render : function () {
+		editNameFirst = this.model.get('nameFirst');
+		editNameLast = this.model.get('nameLast');
+		editEmail = this.model.get('email');
+		var html = "<span class='nameFirst'>First Name:<input value='" + editNameFirst + "' type='text'></span><span class='nameLast'>Last Name: <input value='" + editNameLast + "' type='text'></span><span class='email'>Email: <input value='" + editEmail + "' type='text'></span><div id='edit_button'>Edit User</div>";
+		this.$el.html(html);
+		$('#edit_user').append(this.el);
+		$('#edit_user').fadeToggle();
+	}
+});
 
-newUser.save();
-newUser2.save();
-alert(ulist.length);
+new User({nameFirst:'Matthew', nameLast:'Ross', email:'mbahoshy@gmail.com'});
+new User({nameFirst:'Joe', nameLast:'Ross', email:'joe@gmail.com'});
 
 
 /*
